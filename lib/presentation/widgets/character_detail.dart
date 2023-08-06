@@ -1,3 +1,4 @@
+import 'package:marvel/data/repositories/character_repository.dart';
 import 'package:marvel/domain/models/character_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,28 +11,35 @@ class CharacterDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final characterBloc = BlocProvider.of<CharacterBloc>(context);
+    return BlocProvider(
+      create: (context) => CharacterBloc(CharacterRepository())
+        ..getCharacterDetails(characterId),
+      child: BlocBuilder<CharacterBloc, List<Character>>(
+        builder: (context, characters) {
+          if (characters.isEmpty) {
+            return Center(child: CircularProgressIndicator());
+          }
+          final character =
+              characters.firstWhere((char) => char.id == characterId);
 
-    return BlocBuilder<CharacterBloc, List<Character>>(
-      builder: (context, characters) {
-        final character =
-            characters.firstWhere((char) => char.id == characterId);
-
-        return Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Image.network(character.thumbnailUrl),
-              SizedBox(height: 16),
-              Text(character.name,
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-              SizedBox(height: 8),
-              Text(character.description),
-            ],
-          ),
-        );
-      },
+          return Scaffold(
+            body: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: 16),
+                Image.network(character.thumbnailUrl),
+                SizedBox(height: 16),
+                Text(
+                  character.name,
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 8),
+                Text(character.description)
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }
