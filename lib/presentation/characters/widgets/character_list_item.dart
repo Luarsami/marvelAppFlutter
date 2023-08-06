@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:marvel/domain/models/character_model.dart';
-import 'package:marvel/presentation/screens/character_detail_screen.dart';
+import 'package:marvel/presentation/characters/screens/character_detail_screen.dart';
 
 class CharacterListItem extends StatelessWidget {
   final Character character;

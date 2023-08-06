@@ -2,7 +2,7 @@ import 'package:marvel/data/repositories/character_repository.dart';
 import 'package:marvel/domain/models/character_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:marvel/presentation/blocs/character_bloc.dart';
+import 'package:marvel/presentation/characters/blocs/character_bloc.dart';
 
 class CharacterDetail extends StatelessWidget {
   final int characterId;

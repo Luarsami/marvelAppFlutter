@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:marvel/presentation/widgets/categories_list.dart';
+import 'package:marvel/presentation/home/widgets/categories_list.dart';
 
 class HomeScreen extends StatelessWidget {
   @override

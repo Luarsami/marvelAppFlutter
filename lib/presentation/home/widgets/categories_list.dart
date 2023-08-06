@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:marvel/presentation/screens/character_list_screen.dart';
+import 'package:marvel/presentation/characters/screens/character_list_screen.dart';
 
 class CategoriesList extends StatelessWidget {
   @override
@@ -13,7 +13,7 @@ class CategoriesList extends StatelessWidget {
             child: Text('Categories'),
           ),
           ListTile(
-            title: Text('All Characters'),
+            title: Text('Characters'),
             onTap: () {
               Navigator.pop(context);
               Navigator.push(
