@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart' as dotenv;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:marvel/presentation/screens/character_list_screen.dart';
 
 Future<void> main() async {
-  await dotenv.dotenv.load();
+  await dotenv.load();
   runApp(MyApp());
 }
 

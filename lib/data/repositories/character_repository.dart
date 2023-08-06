@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:marvel/data/models/character_model.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart' as dotenv;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:crypto/crypto.dart';
 
-final baseUrl = dotenv.dotenv.get('API_URL');
-final publicKey = dotenv.dotenv.get('PUBLIC_KEY');
-final privateKey = dotenv.dotenv.get('PRIVATE_KEY');
+final baseUrl = dotenv.env['API_URL'];
+final publicKey = dotenv.env['PUBLIC_KEY'];
+final privateKey = dotenv.env['PRIVATE_KEY'];
 
 final timeStamp = DateTime.now().millisecondsSinceEpoch.toString();
 final hash =
