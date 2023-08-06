@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../data/models/character_model.dart';
-import '../../data/repositories/character_repository.dart';
+import 'package:marvel/data/repositories/character_repository.dart';
+import 'package:marvel/domain/models/character_model.dart';
 
-class CharacterBloc extends Cubit<List<CharacterModel>> {
+class CharacterBloc extends Cubit<List<Character>> {
   final CharacterRepository repository;
 
   CharacterBloc(this.repository) : super([]);
@@ -10,7 +10,10 @@ class CharacterBloc extends Cubit<List<CharacterModel>> {
   void getCharacters() async {
     try {
       final characters = await repository.fetchCharacters();
-      emit(characters);
+      final characterList = characters
+          .map((model) => Character.fromCharacterModel(model))
+          .toList();
+      emit(characterList);
     } catch (e) {
       emit([]);
     }
@@ -19,7 +22,8 @@ class CharacterBloc extends Cubit<List<CharacterModel>> {
   void getCharacterDetails(int characterId) async {
     try {
       final character = await repository.fetchCharacterDetails(characterId);
-      emit([character]);
+      final characterDetail = Character.fromCharacterModel(character);
+      emit([characterDetail]);
     } catch (e) {
       emit([]);
     }

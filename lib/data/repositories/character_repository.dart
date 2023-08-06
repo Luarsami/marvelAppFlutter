@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../../data/models/character_model.dart';
+import 'package:marvel/data/models/character_model.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as dotenv;
 import 'package:crypto/crypto.dart';
 
@@ -8,10 +8,10 @@ final baseUrl = dotenv.dotenv.get('API_URL');
 final publicKey = dotenv.dotenv.get('PUBLIC_KEY');
 final privateKey = dotenv.dotenv.get('PRIVATE_KEY');
 
-String timeStamp = DateTime.now().millisecondsSinceEpoch.toString();
-String hash =
+final timeStamp = DateTime.now().millisecondsSinceEpoch.toString();
+final hash =
     md5.convert(utf8.encode('$timeStamp$privateKey$publicKey')).toString();
-String url = '$baseUrl/characters?apikey=$publicKey&ts=$timeStamp&hash=$hash';
+final url = '$baseUrl/characters?apikey=$publicKey&ts=$timeStamp&hash=$hash';
 
 class CharacterRepository {
   Future<List<CharacterModel>> fetchCharacters() async {
@@ -29,7 +29,7 @@ class CharacterRepository {
   }
 
   Future<CharacterModel> fetchCharacterDetails(int characterId) async {
-    String urlCharacter =
+    final String urlCharacter =
         '$baseUrl/characters/$characterId?apikey=$publicKey&ts=$timeStamp&hash=$hash';
     final response = await http.get(Uri.parse(urlCharacter));
 
