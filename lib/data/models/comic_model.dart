@@ -12,7 +12,7 @@ class ComicModel {
 
   factory ComicModel.fromJson(Map<String, dynamic> json) {
     return ComicModel(
-      id: json['id'],
+      id: json['digitalId'],
       title: json['title'],
       description: json['description'],
       thumbnailUrl:

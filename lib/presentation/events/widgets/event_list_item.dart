@@ -12,7 +12,6 @@ class EventListItem extends StatelessWidget {
     return ListTile(
       leading: Image.network(event.thumbnailUrl),
       title: Text(event.title),
-      subtitle: Text(event.description),
       onTap: () {
         Navigator.push(
           context,

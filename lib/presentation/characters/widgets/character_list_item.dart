@@ -10,13 +10,9 @@ class CharacterListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading:
-          Image.network(character.thumbnailUrl), // Mostrar imagen en miniatura
-      title: Text(character.name), // Mostrar nombre del personaje
-      subtitle:
-          Text(character.description), // Mostrar descripción del personaje
+      leading: Image.network(character.thumbnailUrl),
+      title: Text(character.name),
       onTap: () {
-        // Navegar a la pantalla de detalles del personaje
         Navigator.push(
           context,
           MaterialPageRoute(

@@ -12,7 +12,6 @@ class StoryListItem extends StatelessWidget {
     return ListTile(
       leading: Image.network(story.thumbnailUrl),
       title: Text(story.title),
-      subtitle: Text(story.description),
       onTap: () {
         Navigator.push(
           context,

@@ -12,7 +12,6 @@ class ComicListItem extends StatelessWidget {
     return ListTile(
       leading: Image.network(comic.thumbnailUrl),
       title: Text(comic.title),
-      subtitle: Text(comic.description),
       onTap: () {
         Navigator.push(
           context,

@@ -12,7 +12,6 @@ class SerieListItem extends StatelessWidget {
     return ListTile(
       leading: Image.network(serie.thumbnailUrl),
       title: Text(serie.title),
-      subtitle: Text(serie.description),
       onTap: () {
         Navigator.push(
           context,
