@@ -10,6 +10,8 @@ import 'package:marvel/presentation/series/screens/serie_list_screen.dart';
 import 'package:marvel/presentation/stories/screens/story_list_screen.dart';
 
 class CategoriesList extends StatelessWidget {
+  const CategoriesList({key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final homeBloc = BlocProvider.of<HomeBloc>(context);
