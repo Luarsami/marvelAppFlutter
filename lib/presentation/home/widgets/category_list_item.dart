@@ -14,7 +14,7 @@ class CategoryListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (!isVisible) {
-      return SizedBox.shrink();
+      return const SizedBox.shrink();
     }
 
     return ListTile(

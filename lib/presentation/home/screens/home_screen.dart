@@ -11,10 +11,7 @@ class HomeScreen extends StatelessWidget {
         title: const Text('Marvel App'),
       ),
       drawer: const CategoriesList(),
-      // body: const Welcome(),
-      body: const Center(
-        child: Text('Select a category from the menu'),
-      ),
+      body: Welcome(),
     );
   }
 }

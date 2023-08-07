@@ -14,7 +14,7 @@ class EventDetailScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => EventBloc(EventRepository()),
       child: Scaffold(
-        appBar: AppBar(title: Text('Event Details')),
+        appBar: AppBar(title: const Text('Event Details')),
         body: EventDetail(eventId: eventId),
       ),
     );
