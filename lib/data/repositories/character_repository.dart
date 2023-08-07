@@ -1,16 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:marvel/data/models/character_model.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:crypto/crypto.dart';
+import 'package:marvel/utils/variables_net.dart';
 
-final baseUrl = dotenv.env['API_URL'];
-final publicKey = dotenv.env['PUBLIC_KEY'];
-final privateKey = dotenv.env['PRIVATE_KEY'];
-
-final timeStamp = DateTime.now().millisecondsSinceEpoch.toString();
-final hash =
-    md5.convert(utf8.encode('$timeStamp$privateKey$publicKey')).toString();
 final url = '$baseUrl/characters?apikey=$publicKey&ts=$timeStamp&hash=$hash';
 
 class CharacterRepository {
