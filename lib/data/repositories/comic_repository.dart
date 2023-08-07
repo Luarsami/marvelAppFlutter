@@ -18,6 +18,19 @@ class ComicRepository {
     }
   }
 
+  Future<List<ComicModel>> fetchMoreComics(int offset) async {
+    final response = await http.get(Uri.parse(
+        '$baseUrl/comics?apikey=$publicKey&ts=$timeStamp&hash=$hash&offset=$offset'));
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = json.decode(response.body);
+      final List<dynamic> comicList = data['data']['results'];
+      return comicList.map((json) => ComicModel.fromJson(json)).toList();
+    } else {
+      throw Exception('Failed to load more comics');
+    }
+  }
+
   Future<ComicModel> fetchComicDetails(int comicId) async {
     final String urlComic =
         '$baseUrl/comics/$comicId?apikey=$publicKey&ts=$timeStamp&hash=$hash';

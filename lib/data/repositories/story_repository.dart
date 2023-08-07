@@ -18,6 +18,19 @@ class StoryRepository {
     }
   }
 
+  Future<List<StoryModel>> fetchMoreStories(int offset) async {
+    final response = await http.get(Uri.parse(
+        '$baseUrl/stories?apikey=$publicKey&ts=$timeStamp&hash=$hash&offset=$offset'));
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = json.decode(response.body);
+      final List<dynamic> storyList = data['data']['results'];
+      return storyList.map((json) => StoryModel.fromJson(json)).toList();
+    } else {
+      throw Exception('Failed to load more characters');
+    }
+  }
+
   Future<StoryModel> fetchStoryDetails(int storyId) async {
     final String urlStory =
         '$baseUrl/stories/$storyId?apikey=$publicKey&ts=$timeStamp&hash=$hash';

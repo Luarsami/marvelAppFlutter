@@ -18,6 +18,17 @@ class SerieBloc extends Cubit<List<Serie>> {
     }
   }
 
+  void loadMoreSeries() async {
+    try {
+      final series = await repository.fetchMoreSeries(state.length);
+      final serieList =
+          series.map((model) => Serie.fromSerieModel(model)).toList();
+      emit([...state, ...serieList]);
+    } catch (e) {
+      emit([]);
+    }
+  }
+
   void getSerieDetails(int serieId) async {
     try {
       final serie = await repository.fetchSerieDetails(serieId);

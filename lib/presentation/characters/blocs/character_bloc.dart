@@ -19,6 +19,18 @@ class CharacterBloc extends Cubit<List<Character>> {
     }
   }
 
+  void loadMoreCharacters() async {
+    try {
+      final characters = await repository.fetchMoreCharacters(state.length);
+      final characterList = characters
+          .map((model) => Character.fromCharacterModel(model))
+          .toList();
+      emit([...state, ...characterList]);
+    } catch (e) {
+      emit([]);
+    }
+  }
+
   void getCharacterDetails(int characterId) async {
     try {
       final character = await repository.fetchCharacterDetails(characterId);

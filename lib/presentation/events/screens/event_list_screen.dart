@@ -6,31 +6,52 @@ import 'package:marvel/presentation/events/blocs/event_bloc.dart';
 import 'package:marvel/presentation/events/widgets/event_list_item.dart';
 
 class EventListScreen extends StatelessWidget {
+  const EventListScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => EventBloc(EventRepository())..getEvents(),
       child: Scaffold(
-        appBar: AppBar(title: Text('Marvel Events')),
-        body: EventList(),
+        appBar: AppBar(title: const Text('Marvel Events')),
+        body: const EventList(),
       ),
     );
   }
 }
 
 class EventList extends StatelessWidget {
+  const EventList({super.key});
+
   @override
   Widget build(BuildContext context) {
+    final ScrollController scrollController = ScrollController();
+
     return BlocBuilder<EventBloc, List<Event>>(
       builder: (context, events) {
         if (events.isEmpty) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
+
+        final eventBloc = BlocProvider.of<EventBloc>(context);
+
+        scrollController.addListener(() {
+          if (scrollController.position.pixels ==
+              scrollController.position.maxScrollExtent) {
+            eventBloc.loadMoreEvents();
+          }
+        });
+
         return ListView.builder(
-          itemCount: events.length,
+          controller: scrollController,
+          itemCount: events.length + 1,
           itemBuilder: (context, index) {
-            final event = events[index];
-            return EventListItem(event: event);
+            if (index < events.length) {
+              final event = events[index];
+              return EventListItem(event: event);
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
           },
         );
       },

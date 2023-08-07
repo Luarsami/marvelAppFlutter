@@ -18,6 +18,17 @@ class CreatorBloc extends Cubit<List<Creator>> {
     }
   }
 
+  void loadMoreCreators() async {
+    try {
+      final creators = await repository.fetchMoreCreators(state.length);
+      final creatorList =
+          creators.map((model) => Creator.fromCreatorModel(model)).toList();
+      emit([...state, ...creatorList]);
+    } catch (e) {
+      emit([]);
+    }
+  }
+
   void getCreatorDetails(int creatorId) async {
     try {
       final creator = await repository.fetchCreatorDetails(creatorId);

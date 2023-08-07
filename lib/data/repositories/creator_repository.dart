@@ -18,6 +18,19 @@ class CreatorRepository {
     }
   }
 
+  Future<List<CreatorModel>> fetchMoreCreators(int offset) async {
+    final response = await http.get(Uri.parse(
+        '$baseUrl/creators?apikey=$publicKey&ts=$timeStamp&hash=$hash&offset=$offset'));
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = json.decode(response.body);
+      final List<dynamic> creatorList = data['data']['results'];
+      return creatorList.map((json) => CreatorModel.fromJson(json)).toList();
+    } else {
+      throw Exception('Failed to load more creators');
+    }
+  }
+
   Future<CreatorModel> fetchCreatorDetails(int creatorId) async {
     final String urlCreator =
         '$baseUrl/creators/$creatorId?apikey=$publicKey&ts=$timeStamp&hash=$hash';

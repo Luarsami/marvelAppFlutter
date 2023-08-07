@@ -6,32 +6,53 @@ import 'package:marvel/presentation/characters/blocs/character_bloc.dart';
 import 'package:marvel/presentation/characters/widgets/character_list_item.dart';
 
 class CharacterListScreen extends StatelessWidget {
+  const CharacterListScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
           CharacterBloc(CharacterRepository())..getCharacters(),
       child: Scaffold(
-        appBar: AppBar(title: Text('Marvel Characters')),
-        body: CharacterList(),
+        appBar: AppBar(title: const Text('Marvel Characters')),
+        body: const CharacterList(),
       ),
     );
   }
 }
 
 class CharacterList extends StatelessWidget {
+  const CharacterList({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    final ScrollController scrollController = ScrollController();
+
     return BlocBuilder<CharacterBloc, List<Character>>(
       builder: (context, characters) {
         if (characters.isEmpty) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
+
+        final characterBloc = BlocProvider.of<CharacterBloc>(context);
+
+        scrollController.addListener(() {
+          if (scrollController.position.pixels ==
+              scrollController.position.maxScrollExtent) {
+            characterBloc.loadMoreCharacters();
+          }
+        });
+
         return ListView.builder(
-          itemCount: characters.length,
+          controller: scrollController,
+          itemCount: characters.length + 1,
           itemBuilder: (context, index) {
-            final character = characters[index];
-            return CharacterListItem(character: character);
+            if (index < characters.length) {
+              final character = characters[index];
+              return CharacterListItem(character: character);
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
           },
         );
       },

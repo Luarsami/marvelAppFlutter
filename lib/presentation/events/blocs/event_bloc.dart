@@ -18,6 +18,17 @@ class EventBloc extends Cubit<List<Event>> {
     }
   }
 
+  void loadMoreEvents() async {
+    try {
+      final events = await repository.fetchMoreEvents(state.length);
+      final eventList =
+          events.map((model) => Event.fromEventModel(model)).toList();
+      emit([...state, ...eventList]);
+    } catch (e) {
+      emit([]);
+    }
+  }
+
   void getEventDetails(int eventId) async {
     try {
       final event = await repository.fetchEventDetails(eventId);

@@ -18,6 +18,17 @@ class StoryBloc extends Cubit<List<Story>> {
     }
   }
 
+  void loadMoreStories() async {
+    try {
+      final stories = await repository.fetchMoreStories(state.length);
+      final storyList =
+          stories.map((model) => Story.fromStoryModel(model)).toList();
+      emit([...state, ...storyList]);
+    } catch (e) {
+      emit([]);
+    }
+  }
+
   void getStoryDetails(int storyId) async {
     try {
       final story = await repository.fetchStoryDetails(storyId);

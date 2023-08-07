@@ -18,6 +18,17 @@ class ComicBloc extends Cubit<List<Comic>> {
     }
   }
 
+  void loadMoreComics() async {
+    try {
+      final comics = await repository.fetchMoreComics(state.length);
+      final comicList =
+          comics.map((model) => Comic.fromComicModel(model)).toList();
+      emit([...state, ...comicList]);
+    } catch (e) {
+      emit([]);
+    }
+  }
+
   void getComicDetails(int comicId) async {
     try {
       final comic = await repository.fetchComicDetails(comicId);

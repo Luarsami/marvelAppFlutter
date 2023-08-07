@@ -6,31 +6,52 @@ import 'package:marvel/presentation/creators/blocs/creator_bloc.dart';
 import 'package:marvel/presentation/creators/widgets/creator_list_item.dart';
 
 class CreatorListScreen extends StatelessWidget {
+  const CreatorListScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => CreatorBloc(CreatorRepository())..getCreators(),
       child: Scaffold(
-        appBar: AppBar(title: Text('Marvel Creators')),
-        body: CreatorList(),
+        appBar: AppBar(title: const Text('Marvel Creators')),
+        body: const CreatorList(),
       ),
     );
   }
 }
 
 class CreatorList extends StatelessWidget {
+  const CreatorList({super.key});
+
   @override
   Widget build(BuildContext context) {
+    final ScrollController scrollController = ScrollController();
+
     return BlocBuilder<CreatorBloc, List<Creator>>(
       builder: (context, creators) {
         if (creators.isEmpty) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
+
+        final creatorBloc = BlocProvider.of<CreatorBloc>(context);
+
+        scrollController.addListener(() {
+          if (scrollController.position.pixels ==
+              scrollController.position.maxScrollExtent) {
+            creatorBloc.loadMoreCreators();
+          }
+        });
+
         return ListView.builder(
-          itemCount: creators.length,
+          controller: scrollController,
+          itemCount: creators.length + 1,
           itemBuilder: (context, index) {
-            final creator = creators[index];
-            return CreatorListItem(creator: creator);
+            if (index < creators.length) {
+              final creator = creators[index];
+              return CreatorListItem(creator: creator);
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
           },
         );
       },
