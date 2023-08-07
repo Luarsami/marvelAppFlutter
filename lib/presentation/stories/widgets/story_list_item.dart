@@ -5,21 +5,46 @@ import 'package:marvel/presentation/stories/screens/story_detail_screen.dart';
 class StoryListItem extends StatelessWidget {
   final Story story;
 
-  StoryListItem({required this.story});
+  const StoryListItem({super.key, required this.story});
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: Image.network(story.thumbnailUrl),
-      title: Text(story.title),
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => StoryDetailScreen(storyId: story.id),
-          ),
-        );
-      },
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ListTile(
+        leading: ClipRRect(
+            borderRadius: BorderRadius.circular(10.0),
+            child: Image.network(
+              story.thumbnailUrl,
+              fit: BoxFit.cover,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) {
+                  return child;
+                } else {
+                  return CircularProgressIndicator(
+                    value: loadingProgress.expectedTotalBytes != null
+                        ? loadingProgress.cumulativeBytesLoaded /
+                            loadingProgress.expectedTotalBytes!.toDouble()
+                        : null,
+                  );
+                }
+              },
+              width: 60,
+            )),
+        title: Text(story.title,
+            style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                fontStyle: FontStyle.normal)),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => StoryDetailScreen(storyId: story.id),
+            ),
+          );
+        },
+      ),
     );
   }
 }

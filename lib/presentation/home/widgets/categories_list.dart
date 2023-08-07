@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marvel/presentation/characters/screens/character_list_screen.dart';
 import 'package:marvel/presentation/comics/screens/comic_list_screen.dart';
 import 'package:marvel/presentation/creators/screens/creator_list_screen.dart';
-import 'package:marvel/presentation/home/blocs/home_bloc.dart';
 import 'package:marvel/presentation/home/widgets/category_list_item.dart';
 import 'package:marvel/presentation/events/screens/event_list_screen.dart';
 import 'package:marvel/presentation/series/screens/serie_list_screen.dart';
@@ -14,15 +12,20 @@ class CategoriesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final homeBloc = BlocProvider.of<HomeBloc>(context);
-
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          DrawerHeader(
-            decoration: BoxDecoration(color: Colors.blue),
-            child: Text('Categories'),
+          Container(
+            padding: const EdgeInsets.only(top: 70, left: 10, bottom: 5),
+            height: 100,
+            decoration: const BoxDecoration(color: Colors.red),
+            child: const Text(
+              'CATEGORIES',
+              textDirection: TextDirection.ltr,
+              textAlign: TextAlign.justify,
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+            ),
           ),
           CategoryListItem(
               title: 'Characters',

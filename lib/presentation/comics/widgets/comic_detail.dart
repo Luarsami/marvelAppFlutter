@@ -7,7 +7,7 @@ import 'package:marvel/presentation/comics/blocs/comic_bloc.dart';
 class ComicDetail extends StatelessWidget {
   final int comicId;
 
-  ComicDetail({required this.comicId});
+  const ComicDetail({super.key, required this.comicId});
 
   @override
   Widget build(BuildContext context) {
@@ -17,24 +17,53 @@ class ComicDetail extends StatelessWidget {
       child: BlocBuilder<ComicBloc, List<Comic>>(
         builder: (context, comics) {
           if (comics.isEmpty) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
           final comic = comics.firstWhere((char) => char.id == comicId);
 
           return Scaffold(
-            body: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(height: 16),
-                Image.network(comic.thumbnailUrl),
-                SizedBox(height: 16),
-                Text(
-                  comic.title,
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            body: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ClipRRect(
+                        borderRadius: BorderRadius.circular(20.0),
+                        child: Image.network(
+                          comic.thumbnailUrl,
+                          fit: BoxFit.cover,
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) {
+                              return child;
+                            } else {
+                              return CircularProgressIndicator(
+                                value: loadingProgress.expectedTotalBytes !=
+                                        null
+                                    ? loadingProgress.cumulativeBytesLoaded /
+                                        loadingProgress.expectedTotalBytes!
+                                            .toDouble()
+                                    : null,
+                              );
+                            }
+                          },
+                          height: 350,
+                        )),
+                    const SizedBox(height: 16),
+                    Text(
+                      comic.title,
+                      style: const TextStyle(
+                          fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 14),
+                    Text(
+                      comic.description,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w600, fontSize: 14),
+                    )
+                  ],
                 ),
-                SizedBox(height: 8),
-                Text(comic.description)
-              ],
+              ),
             ),
           );
         },

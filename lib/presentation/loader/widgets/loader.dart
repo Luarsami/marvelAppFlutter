@@ -27,7 +27,7 @@ class LoadingScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 16),
-            CircularProgressIndicator(color: Colors.red),
+            CircularProgressIndicator(),
           ],
         ),
       ),

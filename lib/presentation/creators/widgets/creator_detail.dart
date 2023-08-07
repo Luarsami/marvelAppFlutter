@@ -7,7 +7,7 @@ import 'package:marvel/presentation/creators/blocs/creator_bloc.dart';
 class CreatorDetail extends StatelessWidget {
   final int creatorId;
 
-  CreatorDetail({required this.creatorId});
+  const CreatorDetail({super.key, required this.creatorId});
 
   @override
   Widget build(BuildContext context) {
@@ -17,24 +17,53 @@ class CreatorDetail extends StatelessWidget {
       child: BlocBuilder<CreatorBloc, List<Creator>>(
         builder: (context, creators) {
           if (creators.isEmpty) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
           final creator = creators.firstWhere((char) => char.id == creatorId);
 
           return Scaffold(
-            body: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(height: 16),
-                Image.network(creator.thumbnailUrl),
-                SizedBox(height: 16),
-                Text(
-                  creator.fullName,
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            body: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ClipRRect(
+                        borderRadius: BorderRadius.circular(20.0),
+                        child: Image.network(
+                          creator.thumbnailUrl,
+                          fit: BoxFit.cover,
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) {
+                              return child;
+                            } else {
+                              return CircularProgressIndicator(
+                                value: loadingProgress.expectedTotalBytes !=
+                                        null
+                                    ? loadingProgress.cumulativeBytesLoaded /
+                                        loadingProgress.expectedTotalBytes!
+                                            .toDouble()
+                                    : null,
+                              );
+                            }
+                          },
+                          height: 350,
+                        )),
+                    const SizedBox(height: 16),
+                    Text(
+                      creator.fullName,
+                      style: const TextStyle(
+                          fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 14),
+                    Text(
+                      creator.suffix,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w600, fontSize: 14),
+                    )
+                  ],
                 ),
-                SizedBox(height: 8),
-                Text(creator.suffix)
-              ],
+              ),
             ),
           );
         },
