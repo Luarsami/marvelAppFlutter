@@ -7,14 +7,14 @@ import 'package:marvel/presentation/series/widgets/serie_detail.dart';
 class SerieDetailScreen extends StatelessWidget {
   final int serieId;
 
-  SerieDetailScreen({required this.serieId});
+  const SerieDetailScreen({super.key, required this.serieId});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => SerieBloc(SerieRepository()),
       child: Scaffold(
-        appBar: AppBar(title: Text('Serie Details')),
+        appBar: AppBar(title: const Text('Serie Details')),
         body: SerieDetail(serieId: serieId),
       ),
     );

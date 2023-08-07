@@ -7,7 +7,7 @@ import 'package:marvel/presentation/events/widgets/event_detail.dart';
 class EventDetailScreen extends StatelessWidget {
   final int eventId;
 
-  EventDetailScreen({required this.eventId});
+  const EventDetailScreen({super.key, required this.eventId});
 
   @override
   Widget build(BuildContext context) {

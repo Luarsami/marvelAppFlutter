@@ -7,14 +7,14 @@ import 'package:marvel/presentation/characters/widgets/character_detail.dart';
 class CharacterDetailScreen extends StatelessWidget {
   final int characterId;
 
-  CharacterDetailScreen({required this.characterId});
+  const CharacterDetailScreen({super.key, required this.characterId});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => CharacterBloc(CharacterRepository()),
       child: Scaffold(
-        appBar: AppBar(title: Text('Character Details')),
+        appBar: AppBar(title: const Text('Character Details')),
         body: CharacterDetail(characterId: characterId),
       ),
     );

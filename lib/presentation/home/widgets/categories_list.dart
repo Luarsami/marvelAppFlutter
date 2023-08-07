@@ -35,15 +35,17 @@ class CategoriesList extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => CharacterListScreen()));
+                        builder: (context) => const CharacterListScreen()));
               }),
           CategoryListItem(
               title: 'Comics',
               // isVisible: isComicsVisible,
               onTap: () {
                 Navigator.pop(context);
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ComicListScreen()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ComicListScreen()));
               }),
           CategoryListItem(
               title: 'Creators',
@@ -53,31 +55,37 @@ class CategoriesList extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => CreatorListScreen()));
+                        builder: (context) => const CreatorListScreen()));
               }),
           CategoryListItem(
               title: 'Events',
               // isVisible: isComicsVisible,
               onTap: () {
                 Navigator.pop(context);
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => EventListScreen()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const EventListScreen()));
               }),
           CategoryListItem(
               title: 'Series',
               // isVisible: isComicsVisible,
               onTap: () {
                 Navigator.pop(context);
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SerieListScreen()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SerieListScreen()));
               }),
           CategoryListItem(
               title: 'Stories',
               // isVisible: isComicsVisible,
               onTap: () {
                 Navigator.pop(context);
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => StoryListScreen()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const StoryListScreen()));
               }),
         ],
       ),

@@ -7,14 +7,14 @@ import 'package:marvel/presentation/comics/widgets/comic_detail.dart';
 class ComicDetailScreen extends StatelessWidget {
   final int comicId;
 
-  ComicDetailScreen({required this.comicId});
+  const ComicDetailScreen({super.key, required this.comicId});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ComicBloc(ComicRepository()),
       child: Scaffold(
-        appBar: AppBar(title: Text('Comic Details')),
+        appBar: AppBar(title: const Text('Comic Details')),
         body: ComicDetail(comicId: comicId),
       ),
     );

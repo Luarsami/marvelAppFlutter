@@ -7,14 +7,14 @@ import 'package:marvel/presentation/creators/widgets/creator_detail.dart';
 class CreatorDetailScreen extends StatelessWidget {
   final int creatorId;
 
-  CreatorDetailScreen({required this.creatorId});
+  const CreatorDetailScreen({super.key, required this.creatorId});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => CreatorBloc(CreatorRepository()),
       child: Scaffold(
-        appBar: AppBar(title: Text('Creator Details')),
+        appBar: AppBar(title: const Text('Creator Details')),
         body: CreatorDetail(creatorId: creatorId),
       ),
     );

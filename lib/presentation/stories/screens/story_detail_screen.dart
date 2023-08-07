@@ -7,14 +7,14 @@ import 'package:marvel/presentation/stories/widgets/story_detail.dart';
 class StoryDetailScreen extends StatelessWidget {
   final int storyId;
 
-  StoryDetailScreen({required this.storyId});
+  const StoryDetailScreen({super.key, required this.storyId});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => StoryBloc(StoryRepository()),
       child: Scaffold(
-        appBar: AppBar(title: Text('Story Details')),
+        appBar: AppBar(title: const Text('Story Details')),
         body: StoryDetail(storyId: storyId),
       ),
     );

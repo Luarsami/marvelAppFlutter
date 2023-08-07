@@ -5,7 +5,8 @@ class CategoryListItem extends StatelessWidget {
   final VoidCallback onTap;
   final bool isVisible;
 
-  CategoryListItem({
+  const CategoryListItem({
+    super.key,
     required this.title,
     required this.onTap,
     this.isVisible = true,
